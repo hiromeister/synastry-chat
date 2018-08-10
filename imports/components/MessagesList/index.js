@@ -8,7 +8,7 @@ import Message from "../Message";
 class MessagesList extends React.Component {
   renderMessages() {
     return this.props.messages.map(message => (
-      <Message key={message._id} message={message} />
+      <Message key={message._id} message={message} currentUser={this.props.currentUser} />
     ));
   }
 

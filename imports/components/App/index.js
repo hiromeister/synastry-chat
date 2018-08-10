@@ -1,20 +1,22 @@
 import React from "react";
+import { withTracker } from "meteor/react-meteor-data";
 
-import SignIn from "../SignIn";
 import Chat from "../Chat";
 
-export default class App extends React.Component {
-  constructor(props){
+import AccountUiWrapper from "../AccountsUiWrapper";
+
+class App extends React.Component {
+  constructor(props) {
     super(props);
 
     this.state = {
-      username : ''
-    }
+      username: ""
+    };
 
     this.getUsername = this.getUsername.bind(this);
   }
 
-  getUsername(username){
+  getUsername(username) {
     this.setState({
       username
     });
@@ -22,12 +24,19 @@ export default class App extends React.Component {
     console.log("App parent", this.state.username);
   }
   render() {
+    console.log("curr", this.props.currentUser);
     const user = this.state.username;
     return (
       <div className="app">
-        <SignIn getUsername={this.getUsername}/>
-        <Chat username={user}/>
+        <AccountUiWrapper />
+        <Chat username={user} currentUser={this.props.currentUser} />
       </div>
     );
   }
 }
+
+export default withTracker(() => {
+  return {
+    currentUser: Meteor.user()
+  };
+})(App);

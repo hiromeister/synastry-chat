@@ -7,11 +7,11 @@ export default class Chat extends React.Component {
     const username = this.props.username;
     return (
       <div>
-        <div class="Chat">
-          <MessagesList />
+        <div className="Chat">
+          <MessagesList currentUser={this.props.currentUser} />
         </div>
         <div>
-          <SendMessage username={username} />
+          <SendMessage username={username}  />
         </div>
       </div>
     );

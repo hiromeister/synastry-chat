@@ -7,16 +7,23 @@ export const Messages = new Mongo.Collection("messages");
 
 
 Meteor.methods({
-  "tasks.insert"(text, user, time) {
+  "tasks.insert"(text, time) {
     check(text, String);
-    check(user, String);
     check(time, String);
 
     Messages.insert({
       text,
-      user,
-      time
+      time,
+      owner: Meteor.userId(),
+      username: Meteor.user().username
     });
+  },
+
+  "messages.update"(messageId, newText){
+    check(messageId, String);
+    check(newText, String);
+    Messages.update(messageId, { $set: { text: newText } });
+
   }
 });
 
